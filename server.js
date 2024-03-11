@@ -23,7 +23,6 @@ Commandes.belongsToMany(Nourritures, { through: "Composer" });
 Nourritures.belongsToMany(Commandes, { through: "Composer" });
 Users.belongsToMany(Cuisiniers, { through: "Suivre_cuisiniers" });
 Cuisiniers.belongsToMany(Users, { through: "Suivre_cuisiniers" });
-
 //le Middleware pertet de traiter les donnees dans une request
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

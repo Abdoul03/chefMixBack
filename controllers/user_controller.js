@@ -2,19 +2,8 @@ const Users = require("../models/Users");
 
 //cree un user
 module.exports.addUsers = async (req, res) => {
-  const { non, prenom, email, adresse, telephone, password, username, profil } =
-    req.body;
   try {
-    const inscrip = await Users.create({
-      non,
-      prenom,
-      email,
-      adresse,
-      telephone,
-      password,
-      username,
-      profil,
-    });
+    const inscrip = await Users.create(req.body);
     res.status(200).json(inscrip);
   } catch (error) {
     res.status(500).json({ message: error.message });
