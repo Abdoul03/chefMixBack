@@ -5,12 +5,15 @@ const {
   getUsersById,
   updateUser,
   deleteUsers,
+  connectUsers,
 } = require("../controllers/user_controller");
 const router = express.Router();
 
 //CRUD
 //create des utilisateurs(CREATE)
 router.post("/inscriptionUser", addUsers);
+//login
+router.post("login", connectUsers);
 // Afficher tous les utilisateurs(READ)
 router.get("/", getUsers);
 //Afficher les utilisateur par ID(READ)

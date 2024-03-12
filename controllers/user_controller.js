@@ -1,4 +1,5 @@
 const Users = require("../models/Users");
+const bcrypt = require("bcrypt");
 
 //cree un user
 module.exports.addUsers = async (req, res) => {
@@ -54,6 +55,24 @@ module.exports.deleteUsers = async (req, res) => {
   try {
     const deleteUser = await Users.destroy({ where: { iduser } });
     res.status(200).json(deleteUser);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+//se connecter
+module.exports.connectUsers = async (req, res) => {
+  const { username, password } = req.body;
+  try {
+    const user = await Users.findOne({ where: { username } });
+    if (!user) {
+      return res.status(404).json({ message: "Utilisateur non trouvé." });
+    }
+    const isPasswordValid = await bcrypt.compare(password, Users.password);
+    if (!isPasswordValid) {
+      return res.status(401).json({ message: "Mot de passe incorrect." });
+    }
+
+    res.status(200).json({ message: "Connexion réussie." });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

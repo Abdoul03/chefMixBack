@@ -1,4 +1,5 @@
 const Cuisiniers = require("../models/Cuisiniers");
+const bcrypt = require("bcrypt");
 
 module.exports.addcuisinier = async (req, res) => {
   try {
@@ -51,6 +52,24 @@ module.exports.deleteCuisinier = async (req, res) => {
   try {
     const deletechef = await Cuisiniers.destroy({ where: { idcuisinier } });
     res.status(200).json(deletechef);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports.connectCuisinier = async (req, res) => {
+  const { login, password } = req.body;
+  try {
+    const user = await Cuisiniers.findOne({ where: { login } });
+    if (!user) {
+      return res.status(404).json({ message: "Utilisateur non trouvé." });
+    }
+    const isPasswordValid = await bcrypt.compare(password, Cuisiniers.password);
+    if (!isPasswordValid) {
+      return res.status(401).json({ message: "Mot de passe incorrect." });
+    }
+
+    res.status(200).json({ message: "Connexion réussie." });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
