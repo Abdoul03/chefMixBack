@@ -29,11 +29,11 @@ const Users = db.define("Users", {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-  password: {
+  username: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  username: {
+  password: {
     type: DataTypes.STRING,
     allowNull: false,
   },

@@ -1,10 +1,24 @@
 const Cuisiniers = require("../models/Cuisiniers");
 const bcrypt = require("bcrypt");
+const Jwt = require("jsonwebtoken");
 
 module.exports.addcuisinier = async (req, res) => {
+  const { nom, prenom, email, adresse, telephone, login, password } = req.body;
+
   try {
-    const inscrip = await Cuisiniers.create(req.body);
-    res.status(200).json(inscrip);
+    const cryptPassword = await bcrypt.hash(password, 10);
+    const inscrip = await Cuisiniers.create({
+      nom,
+      prenom,
+      email,
+      adresse,
+      telephone,
+      login,
+      password: cryptPassword,
+    });
+    res
+      .status(200)
+      .json({ message: "client enregistrer avec succes", inscrip });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -60,16 +74,20 @@ module.exports.deleteCuisinier = async (req, res) => {
 module.exports.connectCuisinier = async (req, res) => {
   const { login, password } = req.body;
   try {
-    const user = await Cuisiniers.findOne({ where: { login } });
+    const cuisinier = await Cuisiniers.findOne({ where: { login } });
     if (!user) {
       return res.status(404).json({ message: "Utilisateur non trouvé." });
     }
-    const isPasswordValid = await bcrypt.compare(password, Cuisiniers.password);
+    //compare passeword
+    const isPasswordValid = await bcrypt.compare(password, cuisinier.password);
     if (!isPasswordValid) {
       return res.status(401).json({ message: "Mot de passe incorrect." });
     }
-
-    res.status(200).json({ message: "Connexion réussie." });
+    //used token
+    const token = Jwt.sign({ idcuisinier: cuisinier.id }, "shhhhh", {
+      expiresIn: "1h",
+    });
+    res.status(200).json({ message: "Connexion réussie.", token });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

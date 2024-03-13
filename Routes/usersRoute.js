@@ -13,7 +13,7 @@ const router = express.Router();
 //create des utilisateurs(CREATE)
 router.post("/inscriptionUser", addUsers);
 //login
-router.post("login", connectUsers);
+router.post("/login", connectUsers);
 // Afficher tous les utilisateurs(READ)
 router.get("/", getUsers);
 //Afficher les utilisateur par ID(READ)

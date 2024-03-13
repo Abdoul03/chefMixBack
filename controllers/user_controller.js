@@ -1,11 +1,27 @@
 const Users = require("../models/Users");
 const bcrypt = require("bcrypt");
+const Jwt = require("jsonwebtoken");
 
 //cree un user
 module.exports.addUsers = async (req, res) => {
+  const { nom, prenom, email, adresse, telephone, username, password } =
+    req.body;
+
   try {
-    const inscrip = await Users.create(req.body);
-    res.status(200).json(inscrip);
+    const cryptPassword = await bcrypt.hash(password, 10);
+    const inscrip = await Users.create({
+      nom,
+      prenom,
+      email,
+      adresse,
+      telephone,
+      username,
+      password: cryptPassword,
+    });
+
+    res
+      .status(200)
+      .json({ message: "client enregistrer avec succes", inscrip });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -67,12 +83,16 @@ module.exports.connectUsers = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "Utilisateur non trouvé." });
     }
-    const isPasswordValid = await bcrypt.compare(password, Users.password);
+    //compare passeword
+    const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
       return res.status(401).json({ message: "Mot de passe incorrect." });
     }
-
-    res.status(200).json({ message: "Connexion réussie." });
+    //token used
+    const token = Jwt.sign({ iduser: user.id }, "shhhhh", {
+      expiresIn: "1h",
+    });
+    res.status(200).json({ message: "Connexion réussie.", token });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

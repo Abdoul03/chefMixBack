@@ -12,7 +12,7 @@ const router = express.Router();
 //create des Cuisiniers(CREATE)
 router.post("/inscriptionChef", addcuisinier);
 //S'authentifier
-router.post("login");
+router.post("/login");
 // Afficher tous les Cuisiniers(READ)
 router.get("/", getCuisinier);
 //Afficher les Cuisibier par ID(READ)

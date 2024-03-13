@@ -27,11 +27,11 @@ const Cuisiniers = db.define("Cuisiniers", {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-  password: {
+  login: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  login: {
+  password: {
     type: DataTypes.STRING,
     allowNull: false,
   },
