@@ -1,5 +1,6 @@
 const Categories = require("../models/Categories");
 
+//Create
 module.exports.addCategorie = async (req, res) => {
   try {
     const ajoute = await Categories.create(req.body);
@@ -8,7 +9,7 @@ module.exports.addCategorie = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
+//Read
 module.exports.getCategorie = async (req, res) => {
   try {
     const categorie = await Categories.findAll();
@@ -18,7 +19,7 @@ module.exports.getCategorie = async (req, res) => {
   }
   // res.json({ message: "voici tous les Categories" });
 };
-
+//Read by id
 module.exports.getCategorieById = async (req, res) => {
   const idcatego = req.params.id;
   try {
@@ -34,7 +35,7 @@ module.exports.getCategorieById = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
+//Update
 module.exports.updateCategorie = async (req, res) => {
   const idcatego = req.params.id;
   const update = req.body;
@@ -45,7 +46,7 @@ module.exports.updateCategorie = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
+//Delete
 module.exports.deleteCategorie = async (req, res) => {
   const idcatego = req.params.id;
   try {

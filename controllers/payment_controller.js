@@ -1,5 +1,6 @@
 const Paymentmethods = require("../models/Paymentmethods");
 
+//Create
 module.exports.addPayment = async (req, res) => {
   try {
     const moyensPayment = await Paymentmethods.create(req.body);
@@ -8,7 +9,7 @@ module.exports.addPayment = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
+//Read
 module.exports.getPayment = async (req, res) => {
   try {
     const moyensPayments = await Paymentmethods.findAll();
@@ -18,7 +19,7 @@ module.exports.getPayment = async (req, res) => {
   }
   // res.json({ message: "voici tous les moyens de payemnt" });
 };
-
+//Read by id
 module.exports.getPaymentById = async (req, res) => {
   const idpaymethod = req.params.id;
   try {
@@ -34,7 +35,7 @@ module.exports.getPaymentById = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
+//Update
 module.exports.updatePayment = async (req, res) => {
   const idpaymethod = req.params.id;
   const update = req.body;
@@ -47,7 +48,7 @@ module.exports.updatePayment = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
+//Delete
 module.exports.deletePayment = async (req, res) => {
   const idpaymethod = req.params.id;
   try {

@@ -1,5 +1,6 @@
 const Commandes = require("../models/Commandes");
 
+//Create
 module.exports.addCommande = async (req, res) => {
   try {
     const commander = await Commandes.create(req.body);
@@ -8,7 +9,7 @@ module.exports.addCommande = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
+//Read
 module.exports.getCommande = async (req, res) => {
   try {
     const commandes = await Commandes.findAll();
@@ -18,7 +19,7 @@ module.exports.getCommande = async (req, res) => {
   }
   // res.json({ message: "voici tous les Commandes" });
 };
-
+//Read by id
 module.exports.getCommandeById = async (req, res) => {
   const numcomm = req.params.id;
   try {
@@ -34,7 +35,7 @@ module.exports.getCommandeById = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
+//Update
 module.exports.updateCommande = async (req, res) => {
   const numcomm = req.params.id;
   const update = req.body;
@@ -45,7 +46,7 @@ module.exports.updateCommande = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
+//Delete
 module.exports.deleteCommande = async (req, res) => {
   const numcomm = req.params.id;
   try {

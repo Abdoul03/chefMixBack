@@ -22,10 +22,6 @@ const Nourritures = db.define("Nourritures", {
   photo: {
     type: DataTypes.BLOB,
   },
-  idcatego: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
 });
 
 module.exports = Nourritures;

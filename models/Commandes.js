@@ -15,15 +15,11 @@ const Commandes = db.define("Commandes", {
     type: DataTypes.DATE,
     allowNull: false,
   },
-  date_livrai: {
-    type: DataTypes.DATE,
-    allowNull: false,
-  },
   iduser: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-  idpaymethod: {
+  quantite: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },

@@ -1,5 +1,6 @@
 const Nourritures = require("../models/Nourritures");
 
+//Create
 module.exports.addNourriture = async (req, res) => {
   try {
     const ajoute = await Nourritures.create(req.body);
@@ -8,7 +9,7 @@ module.exports.addNourriture = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
+//Read
 module.exports.getNourriture = async (req, res) => {
   try {
     const nourriture = await Nourritures.findAll();
@@ -18,7 +19,7 @@ module.exports.getNourriture = async (req, res) => {
   }
   // res.json({ message: "voici tous les Nourritures" });
 };
-
+//Read by id
 module.exports.getNourritureById = async (req, res) => {
   const idnourr = req.params.id;
   try {
@@ -34,7 +35,7 @@ module.exports.getNourritureById = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
+//Update
 module.exports.updateNourriture = async (req, res) => {
   const idnourr = req.params.id;
   const update = req.body;
@@ -45,7 +46,7 @@ module.exports.updateNourriture = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
+//Delete
 module.exports.deleteNourriture = async (req, res) => {
   const idnourr = req.params.id;
   try {

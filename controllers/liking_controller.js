@@ -1,5 +1,6 @@
 const db = require("../config/db");
 
+// Licke
 module.exports.likeNourriture = async (req, res) => {
   const { idNourriture } = req.body;
   const idUser = req.user.id;

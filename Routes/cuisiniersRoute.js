@@ -5,6 +5,7 @@ const {
   getCuisinierById,
   updateCuisinier,
   deleteCuisinier,
+  connectCuisinier,
 } = require("../controllers/cuisinier_constroller");
 const router = express.Router();
 
@@ -12,7 +13,7 @@ const router = express.Router();
 //create des Cuisiniers(CREATE)
 router.post("/inscriptionChef", addcuisinier);
 //S'authentifier
-router.post("/login");
+router.post("/login", connectCuisinier);
 // Afficher tous les Cuisiniers(READ)
 router.get("/", getCuisinier);
 //Afficher les Cuisibier par ID(READ)

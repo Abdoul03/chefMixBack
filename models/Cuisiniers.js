@@ -27,7 +27,7 @@ const Cuisiniers = db.define("Cuisiniers", {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-  login: {
+  username: {
     type: DataTypes.STRING,
     allowNull: false,
   },
@@ -37,7 +37,7 @@ const Cuisiniers = db.define("Cuisiniers", {
   },
   profil: {
     type: DataTypes.BLOB,
-    allowNull: false,
+    allowNull: true,
   },
 });
 

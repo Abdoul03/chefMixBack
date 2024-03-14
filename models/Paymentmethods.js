@@ -12,10 +12,6 @@ const Paymentmethods = db.define("Paymentmethods", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  iduser: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
 });
 
 Paymentmethods.hasMany(Commandes, { as: "Commandes" });
