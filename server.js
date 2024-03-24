@@ -37,7 +37,7 @@ app.use("/methoDePayement", require("./Routes/paymentRoute"));
 app.use("/liking", require("./Routes/like_dislike_Route"));
 
 //syncronise les models avec la base de donnee
-db.sync()
+db.sync(/*{ throw: true }*/)
   .then(() => {
     console.log("Base de données synchronisée");
   })
