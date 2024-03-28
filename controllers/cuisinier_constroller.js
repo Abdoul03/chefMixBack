@@ -18,10 +18,10 @@ module.exports.addcuisinier = async (req, res) => {
       password: cryptPassword,
     });
     res
-      .status(200)
+      .status(201)
       .json({ message: "cuisinier enregistrer avec succes", inscrip });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(400).json({ message: error.message });
   }
 };
 
@@ -30,7 +30,7 @@ module.exports.getCuisinier = async (req, res) => {
     const cuisiniers = await Cuisiniers.findAll();
     res.status(200).json(cuisiniers);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(404).json({ message: error.message });
   }
   // res.json({ message: "voici tous les cuisinier" });
 };
@@ -43,11 +43,11 @@ module.exports.getCuisinierById = async (req, res) => {
       res.status(200).json(cuisinier);
     } else {
       res
-        .status(200)
+        .status(404)
         .json({ message: "Aucun cuisiniers trouvé avec l'ID spécifié." });
     }
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.json({ message: error.message });
   }
 };
 
@@ -58,7 +58,7 @@ module.exports.updateCuisinier = async (req, res) => {
     const upchef = await Cuisiniers.update(update, { where: { idcuisinier } });
     res.status(200).json(upchef);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(404).json({ message: error.message });
   }
 };
 
@@ -66,9 +66,9 @@ module.exports.deleteCuisinier = async (req, res) => {
   const idcuisinier = req.params.id;
   try {
     const deletechef = await Cuisiniers.destroy({ where: { idcuisinier } });
-    res.status(200).json(deletechef);
+    res.status(204).json(deletechef);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(404).json({ message: error.message });
   }
 };
 

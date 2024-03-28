@@ -20,10 +20,10 @@ module.exports.addUsers = async (req, res) => {
     });
 
     res
-      .status(200)
+      .status(201)
       .json({ message: "client enregistrer avec succes", inscrip });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(400).json({ message: error.message });
   }
   //   res.json({ message: "utilisateur Creer" });
 };
@@ -33,7 +33,7 @@ module.exports.getUsers = async (req, res) => {
     const utilisateurs = await Users.findAll();
     res.status(200).json(utilisateurs);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(404).json({ message: error.message });
   }
   //   res.json({ message: "voici les utilisatuers" });
 };
@@ -46,7 +46,7 @@ module.exports.getUsersById = async (req, res) => {
       res.status(200).json(utilisateur);
     } else {
       res
-        .status(200)
+        .status(404)
         .json({ message: "Aucun utilisateur trouvé avec l'ID spécifié." });
     }
   } catch (error) {
@@ -62,7 +62,7 @@ module.exports.updateUser = async (req, res) => {
     const upuser = await Users.update(update, { where: { iduser } });
     res.status(200).json(upuser);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(404).json({ message: error.message });
   }
 };
 //supprimer un user
@@ -70,9 +70,9 @@ module.exports.deleteUsers = async (req, res) => {
   const iduser = req.params.id;
   try {
     const deleteUser = await Users.destroy({ where: { iduser } });
-    res.status(200).json(deleteUser);
+    res.status(204).json(deleteUser);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(404).json({ message: error.message });
   }
 };
 //se connecter

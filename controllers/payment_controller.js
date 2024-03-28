@@ -4,9 +4,9 @@ const Paymentmethods = require("../models/Paymentmethods");
 module.exports.addPayment = async (req, res) => {
   try {
     const moyensPayment = await Paymentmethods.create(req.body);
-    res.status(200).json(moyensPayment);
+    res.status(201).json(moyensPayment);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(400).json({ message: error.message });
   }
 };
 //Read
@@ -15,7 +15,7 @@ module.exports.getPayment = async (req, res) => {
     const moyensPayments = await Paymentmethods.findAll();
     res.status(200).json(moyensPayments);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(404).json({ message: error.message });
   }
   // res.json({ message: "voici tous les moyens de payemnt" });
 };
@@ -27,7 +27,7 @@ module.exports.getPaymentById = async (req, res) => {
     if (moyensPayment) {
       res.status(200).json(moyensPayment);
     } else {
-      res.status(200).json({
+      res.status(404).json({
         message: "Aucun moyen de payement trouvée avec l'ID spécifié.",
       });
     }
@@ -45,7 +45,7 @@ module.exports.updatePayment = async (req, res) => {
     });
     res.status(200).json(uppay);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(404).json({ message: error.message });
   }
 };
 //Delete
@@ -53,8 +53,8 @@ module.exports.deletePayment = async (req, res) => {
   const idpaymethod = req.params.id;
   try {
     const deletepay = await Paymentmethods.destroy({ where: { idpaymethod } });
-    res.status(200).json(deletepay);
+    res.status(204).json(deletepay);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(404).json({ message: error.message });
   }
 };

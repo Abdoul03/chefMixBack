@@ -12,9 +12,9 @@ module.exports.likeNourriture = async (req, res) => {
       type: db.QueryTypes.INSERT,
     });
 
-    res.status(200).json({ message: "Opération de like réussie." });
+    res.status(201).json({ message: "Opération de like réussie." });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(400).json({ message: error.message });
   }
 };
 
@@ -29,8 +29,8 @@ module.exports.dislikeNourriture = async (req, res) => {
       replacements: [idUser, idNourriture],
       type: db.QueryTypes.DELETE,
     });
-    res.status(200).json({ message: "Opération de dislike réussie." });
+    res.status(201).json({ message: "Opération de dislike réussie." });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(400).json({ message: error.message });
   }
 };

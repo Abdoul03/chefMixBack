@@ -4,9 +4,9 @@ const Commandes = require("../models/Commandes");
 module.exports.addCommande = async (req, res) => {
   try {
     const commander = await Commandes.create(req.body);
-    res.status(200).json(commander);
+    res.status(201).json(commander);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(400).json({ message: error.message });
   }
 };
 //Read
@@ -15,7 +15,7 @@ module.exports.getCommande = async (req, res) => {
     const commandes = await Commandes.findAll();
     res.status(200).json(commandes);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(404).json({ message: error.message });
   }
   // res.json({ message: "voici tous les Commandes" });
 };
@@ -28,7 +28,7 @@ module.exports.getCommandeById = async (req, res) => {
       res.status(200).json(commande);
     } else {
       res
-        .status(200)
+        .status(404)
         .json({ message: "Aucune commande trouvée avec l'ID spécifié." });
     }
   } catch (error) {
@@ -43,7 +43,7 @@ module.exports.updateCommande = async (req, res) => {
     const upcomm = await Commandes.update(update, { where: { numcomm } });
     res.status(200).json(upcomm);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(404).json({ message: error.message });
   }
 };
 //Delete
@@ -51,8 +51,8 @@ module.exports.deleteCommande = async (req, res) => {
   const numcomm = req.params.id;
   try {
     const deletecomm = await Commandes.destroy({ where: { numcomm } });
-    res.status(200).json(deletecomm);
+    res.status(204).json(deletecomm);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(404).json({ message: error.message });
   }
 };
