@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const dotenv = require("dotenv").config();
+const cors = require("cors");
 
 const port = 5000;
 //la base de donnee
@@ -26,6 +27,8 @@ Cuisiniers.belongsToMany(Users, { through: "Suivre_cuisiniers" });
 //le Middleware pertet de traiter les donnees dans une request
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+//Middleware Cors
+app.use(cors());
 
 //les routes
 app.use("/utilisateur", require("./Routes/usersRoute"));

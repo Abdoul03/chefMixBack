@@ -77,9 +77,9 @@ module.exports.deleteUsers = async (req, res) => {
 };
 //se connecter
 module.exports.connectUsers = async (req, res) => {
-  const { username, password } = req.body;
+  const { telephone, password } = req.body;
   try {
-    const user = await Users.findOne({ where: { username } });
+    const user = await Users.findOne({ where: { telephone } });
     if (!user) {
       return res.status(404).json({ message: "Utilisateur non trouvé." });
     }

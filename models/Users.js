@@ -23,7 +23,7 @@ const Users = db.define("Users", {
   },
   adresse: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   telephone: {
     type: DataTypes.INTEGER,
@@ -31,7 +31,7 @@ const Users = db.define("Users", {
   },
   username: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   password: {
     type: DataTypes.STRING,
