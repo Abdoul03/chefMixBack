@@ -3,8 +3,7 @@ const bcrypt = require("bcrypt");
 const Jwt = require("jsonwebtoken");
 
 module.exports.addcuisinier = async (req, res) => {
-  const { nom, prenom, email, adresse, telephone, username, password } =
-    req.body;
+  const { nom, prenom, email, adresse, telephone, password } = req.body;
 
   try {
     const cryptPassword = await bcrypt.hash(password, 10);
@@ -14,7 +13,6 @@ module.exports.addcuisinier = async (req, res) => {
       email,
       adresse,
       telephone,
-      username,
       password: cryptPassword,
     });
     res
@@ -73,9 +71,9 @@ module.exports.deleteCuisinier = async (req, res) => {
 };
 
 module.exports.connectCuisinier = async (req, res) => {
-  const { username, password } = req.body;
+  const { telephone, password } = req.body;
   try {
-    const cuisinier = await Cuisiniers.findOne({ where: { username } });
+    const cuisinier = await Cuisiniers.findOne({ where: { telephone } });
     if (!cuisinier) {
       return res.status(404).json({ message: "Cusinier non trouvé." });
     }
