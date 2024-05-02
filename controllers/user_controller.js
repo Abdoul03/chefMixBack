@@ -88,11 +88,12 @@ module.exports.connectUsers = async (req, res) => {
     if (!isPasswordValid) {
       return res.status(401).json({ message: "Mot de passe incorrect." });
     }
-    //token used
-    const token = Jwt.sign({ iduser: user.id }, "shhhhh", {
-      expiresIn: "1h",
-    });
-    res.status(200).json({ message: "Connexion réussie.", token });
+    return res.status(200).json(user);
+    // //token used
+    // const token = Jwt.sign({ iduser: user.id }, "shhhhh", {
+    //   expiresIn: "1h",
+    // });
+    // res.status(200).json({ message: "Connexion réussie.", token });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
