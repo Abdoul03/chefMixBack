@@ -88,13 +88,33 @@ module.exports.connectUsers = async (req, res) => {
     if (!isPasswordValid) {
       return res.status(401).json({ message: "Mot de passe incorrect." });
     }
-    return res.status(200).json(user);
+    //// return res.status(200).json(user);
     // //token used
-    // const token = Jwt.sign({ iduser: user.id }, "shhhhh", {
-    //   expiresIn: "1h",
-    // });
-    // res.status(200).json({ message: "Connexion réussie.", token });
+    const token = Jwt.sign({ iduser: user.id }, "shhhhh", {
+      expiresIn: "1h",
+    });
+    res.status(200).json({ user, token });
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports.authentification = async (req, res, next) => {
+  try {
+    const authToken = req.header("Authorization").replace("Bearer ", "");
+    const decodedToken = Jwt.verify(authToken, "shhhhh");
+    const user = await Users.findOne({
+      idcuisinier: decodedToken.id,
+      token: token,
+    });
+
+    if (!user) {
+      return res.status(400).json({ message: "Utilisateur nom trouver" });
+    }
+
+    req.user = user;
+    next();
+  } catch (error) {
+    res.status(401).send("Merci de vous authentifier !");
   }
 };

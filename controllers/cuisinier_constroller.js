@@ -82,15 +82,34 @@ module.exports.connectCuisinier = async (req, res) => {
     if (!isPasswordValid) {
       return res.status(404).json({ message: "Mot de passe incorrect." });
     }
-    return res.status(200).json(cuisinier);
+    // return res.status(200).json(cuisinier);
 
-    // const cuisiniers = await Cuisiniers.findAll();
     ////used token
-    // const token = Jwt.sign({ idcuisinier: cuisinier.id }, "shhhhh", {
-    //   expiresIn: "1h",
-    // });
-    // res.status(200).json({ message: "Connexion réussie.", token });
+    const token = Jwt.sign({ idcuisinier: cuisinier.id }, "shhhhh", {
+      expiresIn: "1h",
+    });
+    res.status(200).json({ cuisinier, token });
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports.authentification = async (req, res, next) => {
+  try {
+    const authToken = req.header("Authorization").replace("Bearer ", "");
+    const decodedToken = Jwt.verify(authToken, "shhhhh");
+    const cuisinier = await Cuisiniers.findOne({
+      idcuisinier: decodedToken.id,
+      token: token,
+    });
+
+    if (!cuisinier) {
+      return res.status(400).json({ message: "Cuisinier nom trouver" });
+    }
+
+    req.cuisinier = cuisinier;
+    next();
+  } catch (error) {
+    res.status(401).send("merci de vous authentifier !");
   }
 };
